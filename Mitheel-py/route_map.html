@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORS Route Map</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        input {
+            padding: 10px;
+            margin: 5px;
+            width: 300px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        iframe {
+            width: 80%;
+            height: 500px;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h2>OpenRouteService (ORS) Route Map</h2>
+
+    <!-- Search Bar for Source -->
+    <label for="searchSource">Search Source:</label>
+    <input type="text" id="searchSource" placeholder="Enter source location">
+    <button onclick="fetchCoordinates('searchSource', 'source')">Find Source</button>
+
+    <!-- Search Bar for Destination -->
+    <label for="searchDestination">Search Destination:</label>
+    <input type="text" id="searchDestination" placeholder="Enter destination location">
+    <button onclick="fetchCoordinates('searchDestination', 'destination')">Find Destination</button>
+
+    <br><br>
+
+    <!-- Latitude & Longitude Inputs -->
+    <label for="source">Source (Latitude, Longitude):</label>
+    <input type="text" id="source" placeholder="Enter or fetch source coordinates">
+
+    <label for="destination">Destination (Latitude, Longitude):</label>
+    <input type="text" id="destination" placeholder="Enter or fetch destination coordinates">
+
+    <br>
+    <button onclick="loadMap()">Get Route</button>
+
+    <h3>Map Preview:</h3>
+    <iframe id="mapFrame" src="" frameborder="0"></iframe>
+
+    <script>
+        const ORS_API_KEY = "5b3ce3597851110001cf624882ff503deb274a2981515b5272c8cb05"; // Replace with your ORS API key
+
+        function fetchCoordinates(searchInputId, resultInputId) {
+            let location = document.getElementById(searchInputId).value;
+            if (!location) {
+                alert("Please enter a location to search.");
+                return;
+            }
+
+            let apiUrl = `https://api.openrouteservice.org/geocode/search?api_key=${ORS_API_KEY}&text=${encodeURIComponent(location)}`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.features.length > 0) {
+                        let lat = data.features[0].geometry.coordinates[1]; // Latitude
+                        let lon = data.features[0].geometry.coordinates[0]; // Longitude
+                        document.getElementById(resultInputId).value = `${lat}, ${lon}`;
+                    } else {
+                        alert("Location not found. Try again.");
+                    }
+                })
+                .catch(error => console.error("Error fetching coordinates:", error));
+        }
+
+        function loadMap() {
+            let source = document.getElementById("source").value.trim();
+            let destination = document.getElementById("destination").value.trim();
+
+            if (!source || !destination) {
+                alert("Please enter both source and destination coordinates.");
+                return;
+            }
+
+            let mapUrl = `http://127.0.0.1:8000/map?origin=${source}&destination=${destination}`;
+            document.getElementById("mapFrame").src = mapUrl;
+        }
+    </script>
+</body>
+</html>
