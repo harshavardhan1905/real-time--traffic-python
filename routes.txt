@@ -1,0 +1,56 @@
+gandi Maisamma to kukatpally url is : http://127.0.0.1:8000/map?origin=78.42302799224855,17.575057307999252&destination=78.41159105300905,17.4849054198743
+Example data:
+"""incidents_data = {
+        "incidents": [
+            {
+                "id": "INC12345",
+                "type": "ACCIDENT",
+                "severity": "HIGH",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [78.4200, 17.5300]  # [longitude, latitude]
+                },
+                "properties": {
+                    "description": "Major accident reported near Paradise Circle. Expect delays."
+                },
+                "startTime": "2025-02-23T08:30:00Z",
+                "endTime": "2025-02-23T10:00:00Z",
+                "impact": "LANE_CLOSED"
+            },
+            {
+                "id": "INC67890",
+                "type": "ROADWORK",
+                "severity": "MEDIUM",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [78.4150, 17.5050]
+                },
+                "properties": {
+                    "description": "Roadwork on Necklace Road. One lane closed."
+                },
+                "startTime": "2025-02-23T07:00:00Z",
+                "endTime": "2025-02-23T18:00:00Z",
+                "impact": "MODERATE_DELAY"
+            },
+            {
+                "id": "INC54321",
+                "type": "TRAFFIC_JAM",
+                "severity": "LOW",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [78.4120, 17.4900]
+                },
+                "properties": {
+                    "description": "Slow traffic near Lakdi Ka Pul due to congestion."
+                },
+                "startTime": "2025-02-23T09:15:00Z",
+                "endTime": "2025-02-23T11:30:00Z",
+                "impact": "SLOW_TRAFFIC"
+            }
+        ]
+    }"""
+
+
+    original:
+    uccess fetching incidents: {'incidents': [{'type': 'Feature', 'properties': {'iconCategory': 8}, 'geometry': {'type': 'LineString', 'coordinates': [[78.4160622718, 17.4918074939], [78.4163157405, 17.4917458577], [78.416795856, 17.491588929]]}}, {'type': 'Feature', 'properties': {'iconCategory': 8}, 'geometry': {'type': 'LineString', 'coordinates': [[78.416795856, 17.491588929], [78.4163157405, 17.4917458577], [78.4160622718, 17.4918074939]]}}]}
+Traffic API Response: {'incidents': [{'type': 'Feature', 'properties': {'iconCategory': 8}, 'geometry': {'type': 'LineString', 'coordinates': [[78.4160622718, 17.4918074939], [78.4163157405, 17.4917458577], [78.416795856, 17.491588929]]}}, {'type': 'Feature', 'properties': {'iconCategory': 8}, 'geometry': {'type': 'LineString', 'coordinates': [[78.416795856, 17.491588929], [78.4163157405, 17.4917458577], [78.4160622718, 17.4918074939]]}}]}
